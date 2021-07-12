@@ -7,7 +7,6 @@ import data.int.basic
 import tactic
 import algebra.associated
 
-
 /-!
 # IMO 2001 Q6
 Let a, b, c, d be integers with a > b > c > d > 0. Suppose that
@@ -21,11 +20,11 @@ Prove that a*b + c*d is not prime.
 
 /-
 The main idea of this formalization is using the negation
-introduction, that is, we are going to suppose that the number 
-a*b+c*d  is prime. 
+introduction, that is, we are going to suppose that the number
+a*b+c*d  is prime.
 
-However, firstly we have to prove some auxiliar results that 
-will be used in the final theorem. 
+However, firstly we have to prove some auxiliar results that
+will be used in the final theorem.
 -/
 
 
@@ -43,8 +42,7 @@ lemma equivalent_sums
 begin
   have h1: (a + b - c + d) * (-a + b + c + d) =
            -a^2  + b^2  + a*c - c^2 + b*d + d^2 + a*c + b*d,
-   by ring,
-  rw h1 at h,
+    by ring,
   by nlinarith,
 end
 
@@ -58,7 +56,6 @@ begin
   have h2: a*c * (b^2 + b*d + d^2) + b*d * (b^2 + b*d + d^2) =
            a*c * (b^2 + b*d + d^2) + b*d * (a^2 - a*c + c^2),
     by rw equivalent_sums h,
-  rw h2 at h1,
   by nlinarith,
 end
 
@@ -80,14 +77,12 @@ by nlinarith
 lemma auxiliar_split
   (h : a*c + b*d = (a + b - c + d) * (-a + b + c + d))
   : a*c + b*d ∣ (a*b+c*d) * (a*d+b*c):=
-begin
-  use (b^2 + b*d +d^2),
-  by nlinarith [equivalent_products h],
-end
+by exact ⟨b^2 + b*d +d^2, by nlinarith [equivalent_products h]⟩
 
 /-!
 ## The question
 -/
+
 
 theorem imo2001_q6
   (hd  : 0 < d)
@@ -98,12 +93,9 @@ theorem imo2001_q6
   : ¬ prime (a*b + c*d) :=
 begin
   intro h1,
-  have ha : 0 < a,
-    by linarith,
-  have hb : 0 < b,
-    by linarith,
-  have hc : 0 < c,
-    by linarith,
+  have ha : 0 < a, by linarith,
+  have hb : 0 < b, by linarith,
+  have hc : 0 < c, by linarith,
   have h2 : (a*c + b*d) * (b^2 + b*d + d^2) =
             (a*b + c*d) * (a*d + b*c),
     from equivalent_products h,
