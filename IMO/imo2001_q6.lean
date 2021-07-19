@@ -4,7 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Sara Díaz Real
 -/
 import data.int.basic
-import tactic
+import tactic.ring
+import tactic.linarith
 import algebra.associated
 
 /-!
